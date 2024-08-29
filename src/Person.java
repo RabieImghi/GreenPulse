@@ -1,7 +1,13 @@
 public class Person {
     String nom;
-    String ID;
+    String cin;
+    static int id = 0;
     int age;
 
-    public 
+    public void addPerson(String cin ,String nom,int age){
+        this.id ++;
+        this.cin = cin;
+        this.nom = nom;
+        this.age = age;
+    }
 }
