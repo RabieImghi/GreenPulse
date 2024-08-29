@@ -26,6 +26,12 @@ public class User {
     public String getCin(){
         return this.cin;
     }
+    public String getNom(){
+        return this.nom;
+    }
+    public int getAge(){
+        return this.age;
+    }
     public String toString(){
         return "Cin : "+this.cin+"\nNom : "+this.nom+
                 "\nAge : "+this.age;

@@ -9,24 +9,37 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String defultEntre;
         String tempCin;
+        int tempAge = 0;
         boolean test =false;
         do{
-            System.out.print("chois oprion\n1 : add person \n2 : add consumation\n3 : Afiche detaile\n" +
-                    "4 : Qut\n-------------------------------------------------" +
-                    " \nEntre your chois : ");
-            int chois = scanner.nextInt();
-            switch (chois){
+            System.out.print(
+                    "=========================================" +
+                    "\n| Select an option please :" +
+                    "\n| 1 : Add New Person" +
+                    "\n| 2 : Add New Carbon Consumption" +
+                    "\n| 3 : Display User Information (By CIN)" +
+                    "\n| 4 : Close" +
+                    "\n=========================================" +
+                    "\nEntre your option : ");
+            int option = scanner.nextInt();
+            switch (option){
                 case 1 : {
                     defultEntre = scanner.nextLine();
                     System.out.print("Give me your Cin : ");
                     tempCin=scanner.nextLine();
+                    if(users.containsKey(tempCin)) {
+                        System.out.println("User with CIN " + tempCin + " already exists.");
+                        break;
+                    }
                     System.out.print("Give me your name : ");
                     String tempNom=scanner.nextLine();
-                    System.out.print("Give me your Age : ");
-                    int tempAge=scanner.nextInt();
+                    do{
+                        System.out.print("Give me your Age : ");
+                        tempAge=scanner.nextInt();
+                    }while (tempAge == 0);
                     User User = new User(tempCin,tempNom,tempAge);
                     users.put(User.getCin(),User);
-                    System.out.println("user added succefully ");
+                    System.out.println("User Added with successfully :)");
                 } break;
                 case 2 : {
                     defultEntre = scanner.nextLine();
@@ -42,6 +55,15 @@ public class Main {
                 } break;
                 case 3 : {
                     defultEntre = scanner.nextLine();
+                    System.out.println("\n===============================================");
+                    System.out.print("User CIN List : \n");
+                    users.forEach((Cin, User)->{
+                        System.out.print("\nUser CIN : "+Cin);
+                        System.out.print(" / User Name : "+User.getNom()
+                                        +" / User Age : "+ User.getAge());
+                    });
+                    System.out.println("\n===============================================\n");
+
                     System.out.print("Give me CIN of User : ");
                     tempCin = scanner.nextLine();
                     System.out.println("\n===============================================");
