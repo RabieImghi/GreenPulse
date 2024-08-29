@@ -33,8 +33,21 @@ public class User {
         return this.age;
     }
     public String toString(){
-        return "Cin : "+this.cin+"\nNom : "+this.nom+
-                "\nAge : "+this.age;
+        return "\n===============================\n" +
+                "Cin : "+this.cin+"\nNom : "+this.nom+
+                "\nAge : "+this.age+
+                "\nCarbon Consumption :";
+    }
+
+    public  String displayConumation(){
+        StringBuilder tempChain= new StringBuilder();
+        this.consomationsList.forEach((consumations)->{
+            tempChain.append("\t- Start Date Consumption : "+consumations.startDate);
+            tempChain.append("\n\t- End Date Consumption : "+consumations.endDate);
+            tempChain.append("\n\t- Carbon Consumption : "+consumations.carbon);
+            tempChain.append("\n---------------------------");
+        });
+        return tempChain.toString();
     }
 
 }
