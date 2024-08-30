@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class User {
-    public String cin;
-    public String nom;
-    public  int age;
-    public List<Consomation> consomationsList;
+    private String cin;
+    private String nom;
+    private  int age;
+    private List<Consomation> consomationsList;
     public User(String cin, String nom, int age){
         this.cin = cin;
         this.nom = nom;
@@ -18,10 +18,20 @@ public class User {
         Consomation consomation = new Consomation(startDate,endDate,carbon, this);
         this.consomationsList.add(consomation);
     }
+
     public  User finUser(String cin, HashMap<String,User> users){
         if(users.containsKey(cin)) return users.get(cin);
         else return null;
     }
+
+    public List<Consomation> getConsomationsList() {
+        return consomationsList;
+    }
+
+    public void setConsomationsList(List<Consomation> consomationsList) {
+        this.consomationsList = consomationsList;
+    }
+
     public String getCin(){
         return this.cin;
     }
@@ -52,11 +62,11 @@ public class User {
         StringBuilder tempChain = new StringBuilder();
         final float[] totalConsumation = {0};
         this.consomationsList.forEach((consumations) -> {
-            tempChain.append(String.format("\n%d) \t- Start Date Consumption: %s", consumations.id, consumations.startDate));
-            tempChain.append(String.format("\n\t- End Date Consumption: %s", consumations.endDate));
-            tempChain.append(String.format("\n\t- Carbon Consumption: %.2f", consumations.carbon));
+            tempChain.append(String.format("\n%d) \t- Start Date Consumption: %s", consumations.getId(), consumations.getStartDate()));
+            tempChain.append(String.format("\n\t- End Date Consumption: %s", consumations.getEndDate()));
+            tempChain.append(String.format("\n\t- Carbon Consumption: %.2f", consumations.getCarbon()));
             tempChain.append("\n---------------------------");
-            totalConsumation[0] += consumations.carbon;
+            totalConsumation[0] += consumations.getCarbon();
         });
         tempChain.append(String.format("\nTotal Consumption: %.2f", totalConsumation[0]));
         return tempChain.toString();
@@ -65,8 +75,8 @@ public class User {
         float totalDays = 0;
         float totalCarbon = 0;
         for (Consomation consomation : this.consomationsList) {
-            totalDays += ChronoUnit.DAYS.between(consomation.startDate, consomation.endDate);
-            totalCarbon += consomation.carbon;
+            totalDays += ChronoUnit.DAYS.between(consomation.getStartDate(), consomation.getEndDate());
+            totalCarbon += consomation.getCarbon();
         }
         return totalCarbon/totalDays;
     }
@@ -74,8 +84,8 @@ public class User {
         float totalWeeks = 0;
         float totalCarbon = 0;
         for (Consomation consomation : this.consomationsList) {
-            totalWeeks += ChronoUnit.WEEKS.between(consomation.startDate, consomation.endDate);
-            totalCarbon += consomation.carbon;
+            totalWeeks += ChronoUnit.WEEKS.between(consomation.getStartDate(), consomation.getEndDate());
+            totalCarbon += consomation.getCarbon();
         }
         return totalCarbon/totalWeeks;
     }
@@ -83,8 +93,8 @@ public class User {
         float totalMonths = 0;
         float totalCarbon = 0;
         for (Consomation consomation : this.consomationsList) {
-            totalMonths += ChronoUnit.MONTHS.between(consomation.startDate, consomation.endDate);
-            totalCarbon += consomation.carbon;
+            totalMonths += ChronoUnit.MONTHS.between(consomation.getStartDate(), consomation.getEndDate());
+            totalCarbon += consomation.getCarbon();
         }
         return totalCarbon/totalMonths;
     }

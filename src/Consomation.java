@@ -3,12 +3,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Consomation {
-    static final AtomicInteger count = new AtomicInteger(0);
-    int id;
-    LocalDate startDate;
-    LocalDate endDate;
-    float carbon;
-    User user;
+    private static final AtomicInteger count = new AtomicInteger(0);
+    private int id;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private float carbon;
+    private User user;
 
     public int getId() {
         return id;

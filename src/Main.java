@@ -60,11 +60,23 @@ public class Main {
                         System.out.println("User with CIN " + tempCin + " not exists.");
                         break;
                     }
-                    //List<Consomation> tempList = users.get(tempCin).consomationsList;
                     System.out.print("Give me start date : ");
                     String tempDateS = scanner.nextLine();
+                    boolean dateConflict = false;
+                    for (Consomation consumations : users.get(tempCin).getConsomationsList()) {
+                        if (consumations.getEndDate().equals(LocalDate.parse(tempDateS)) || consumations.getEndDate().isAfter(LocalDate.parse(tempDateS))) {
+                            System.out.println("You can't add this date because it's already added.");
+                            dateConflict = true;
+                            break;
+                        }
+                    }
+                    if (dateConflict) break;
                     System.out.print("Give me end date : ");
                     String tempDateE = scanner.nextLine();
+                    if(LocalDate.parse(tempDateS).equals(LocalDate.parse(tempDateE)) || LocalDate.parse(tempDateS).isAfter(LocalDate.parse(tempDateE))){
+                        System.out.println("End date must be greater than start date.");
+                        break;
+                    }
                     System.out.print("Give me Carbon : ");
                     float tempCar = scanner.nextFloat();
                     users.get(tempCin).addConsomation(tempDateS,tempDateE,tempCar);
@@ -134,8 +146,8 @@ public class Main {
                             int tempIdCarbon = scanner.nextInt();
                             defultEntre = scanner.nextLine();
                             boolean testIfExiste = false;
-                            for (Consomation consumations : tempUser.consomationsList) {
-                                if (consumations.id == tempIdCarbon) {
+                            for (Consomation consumations : tempUser.getConsomationsList()) {
+                                if (consumations.getId() == tempIdCarbon) {
                                     System.out.print("Give me new start date : ");
                                     consumations.setStartDate(LocalDate.parse(scanner.nextLine()));
                                     System.out.print("Give me new end date : ");
