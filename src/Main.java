@@ -20,7 +20,8 @@ public class Main {
                     "\n| 1 : Add New Person" +
                     "\n| 2 : Add New Carbon Consumption" +
                     "\n| 3 : Display User Information (By CIN)" +
-                    "\n| 4 : Close" +
+                    "\n| 4 : Update Person" +
+                    "\n| 5 : Close" +
                     "\n=========================================" +
                     "\nEntre your option : ");
             int option = scanner.nextInt();
@@ -83,18 +84,84 @@ public class Main {
 
                     System.out.print("Give me CIN of User : ");
                     tempCin = scanner.nextLine();
+                    if(!users.containsKey(tempCin)) {
+                        System.out.println("User with CIN " + tempCin + " not exists.");
+                        break;
+                    }
                     System.out.println("\n===============================================");
                     System.out.println(users.get(tempCin).toString());
                     System.out.println(users.get(tempCin).displayConumation());
 
 
                 } break;
+                case 4 : {
+                    defultEntre = scanner.nextLine();
+                    System.out.println("\n===============================================");
+                    System.out.print("User CIN List : \n");
+                    users.forEach((Cin, User)->{
+                        System.out.print("\nUser CIN : "+Cin);
+                        System.out.print(" / User Name : "+User.getNom()
+                                +" / User Age : "+ User.getAge());
+                    });
+                    System.out.println("\n===============================================\n");
+                    System.out.print("Give me CIN of User : ");
+                    tempCin = scanner.nextLine();
+                    if(!users.containsKey(tempCin)) {
+                        System.out.println("User with CIN " + tempCin + " not exists.");
+                        break;
+                    }
+                    User tempUser = users.get(tempCin);
+                    System.out.print(
+                            "=========================================" +
+                            "\n| Select an option please :" +
+                            "\n| 1 : Update User Information" +
+                            "\n| 2 : Update Carbon Consumption" +
+                            "\n| 5 : Close" +
+                            "\n=========================================" +
+                            "\nEntre your option : ");
+                    int selectOptionUpdate = scanner.nextInt();
+                    switch (selectOptionUpdate){
+                        case 1 :{
+                            defultEntre = scanner.nextLine();
+                            System.out.print("Please give me new user name : ");
+                            tempUser.setNom(scanner.nextLine());
+                            System.out.print("Please give me new user Age : ");
+                            tempUser.setAge(scanner.nextInt());
+                            System.out.print("User updated with success :)");
+                            break;
+                        }
+                        case 2 : {
+                            defultEntre = scanner.nextLine();
+                            System.out.print("============= Carbon Consumption List ================ ");
+                            System.out.println(tempUser.displayConumation());
+                            System.out.print("=============Select Carbon Consumption to update using id (1,2...) : ");
+                            int tempIdCarbon = scanner.nextInt();
+                            defultEntre = scanner.nextLine();
+                            boolean testIfExiste = false;
+                            for (Consomation consumations : tempUser.consomationsList) {
+                                if (consumations.id == tempIdCarbon) {
+                                    System.out.print("Give me new start date : ");
+                                    consumations.setStartDate(LocalDate.parse(scanner.nextLine()));
+                                    System.out.print("Give me new end date : ");
+                                    consumations.setEndDate(LocalDate.parse(scanner.nextLine()));
+                                    System.out.print("Give me new Carbon : ");
+                                    consumations.setCarbon(scanner.nextFloat());
+                                    System.out.print("User Carbon Consumption updated with success :)");
 
-                case 4 : test=true;
+                                    testIfExiste = true;
+                                    break;
+                                }
+                            }
+                            if(!testIfExiste)
+                                System.out.println("Carbon Consumption with id " +tempIdCarbon + " not exists.");
+                            break;
+                        }
+                        case 3 : break;
+                    }
+
+                } break;
+                case 5 : test=true;
             }
         }while (!test);
-
-
-        
     }
 }

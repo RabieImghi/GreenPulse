@@ -32,6 +32,16 @@ public class User {
     public int getAge(){
         return this.age;
     }
+    public void setNom(String nom){
+        this.nom = nom;
+    }
+    public void setCin(String cin){
+        this.cin = cin;
+    }
+    public void setAge(int age){
+        this.age = age;
+    }
+
     public String toString(){
         return "\n===============================\n" +
                 "Cin : "+this.cin+"\nNom : "+this.nom+
@@ -42,7 +52,7 @@ public class User {
     public  String displayConumation(){
         StringBuilder tempChain= new StringBuilder();
         this.consomationsList.forEach((consumations)->{
-            tempChain.append("\t- Start Date Consumption : "+consumations.startDate);
+            tempChain.append("\n"+consumations.id +") \t- Start Date Consumption : "+consumations.startDate);
             tempChain.append("\n\t- End Date Consumption : "+consumations.endDate);
             tempChain.append("\n\t- Carbon Consumption : "+consumations.carbon);
             tempChain.append("\n---------------------------");
