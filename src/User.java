@@ -50,13 +50,17 @@ public class User {
     }
 
     public  String displayConumation(){
-        StringBuilder tempChain= new StringBuilder();
-        this.consomationsList.forEach((consumations)->{
-            tempChain.append("\n"+consumations.id +") \t- Start Date Consumption : "+consumations.startDate);
-            tempChain.append("\n\t- End Date Consumption : "+consumations.endDate);
-            tempChain.append("\n\t- Carbon Consumption : "+consumations.carbon);
+        StringBuilder tempChain = new StringBuilder();
+        final float[] totalConsumation = {0};
+
+        this.consomationsList.forEach((consumations) -> {
+            tempChain.append(String.format("\n%d) \t- Start Date Consumption: %s", consumations.id, consumations.startDate));
+            tempChain.append(String.format("\n\t- End Date Consumption: %s", consumations.endDate));
+            tempChain.append(String.format("\n\t- Carbon Consumption: %.2f", consumations.carbon));
             tempChain.append("\n---------------------------");
+            totalConsumation[0] += consumations.carbon;
         });
+        tempChain.append(String.format("\nTotal Consumption: %.2f", totalConsumation[0]));
         return tempChain.toString();
     }
 

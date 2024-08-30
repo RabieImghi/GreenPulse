@@ -17,11 +17,12 @@ public class Main {
             System.out.print(
                     "=========================================" +
                     "\n| Select an option please :" +
-                    "\n| 1 : Add New Person" +
+                    "\n| 1 : Add New User" +
                     "\n| 2 : Add New Carbon Consumption" +
                     "\n| 3 : Display User Information (By CIN)" +
-                    "\n| 4 : Update Person" +
-                    "\n| 5 : Close" +
+                    "\n| 4 : Update User" +
+                    "\n| 5 : Delete User" +
+                    "\n| 6 : Close" +
                     "\n=========================================" +
                     "\nEntre your option : ");
             int option = scanner.nextInt();
@@ -44,7 +45,6 @@ public class Main {
                     users.put(User.getCin(),User);
                     System.out.println("User Added with successfully :)");
                 } break;
-
                 case 2 : {
                     defultEntre = scanner.nextLine();
                     System.out.println("\n===============================================");
@@ -70,7 +70,6 @@ public class Main {
                     float tempCar = scanner.nextFloat();
                     users.get(tempCin).addConsomation(tempDateS,tempDateE,tempCar);
                 } break;
-
                 case 3 : {
                     defultEntre = scanner.nextLine();
                     System.out.println("\n===============================================");
@@ -127,7 +126,7 @@ public class Main {
                             tempUser.setNom(scanner.nextLine());
                             System.out.print("Please give me new user Age : ");
                             tempUser.setAge(scanner.nextInt());
-                            System.out.print("User updated with success :)");
+                            System.out.print("User updated with success :)\n");
                             break;
                         }
                         case 2 : {
@@ -146,21 +145,40 @@ public class Main {
                                     consumations.setEndDate(LocalDate.parse(scanner.nextLine()));
                                     System.out.print("Give me new Carbon : ");
                                     consumations.setCarbon(scanner.nextFloat());
-                                    System.out.print("User Carbon Consumption updated with success :)");
-
+                                    System.out.print("User Carbon Consumption updated with success :)\n\n");
                                     testIfExiste = true;
                                     break;
                                 }
                             }
                             if(!testIfExiste)
-                                System.out.println("Carbon Consumption with id " +tempIdCarbon + " not exists.");
+                                System.out.println("Carbon Consumption with id " +tempIdCarbon + " not exists.\n\n");
                             break;
                         }
                         case 3 : break;
                     }
 
                 } break;
-                case 5 : test=true;
+                case 5 : {
+                    defultEntre = scanner.nextLine();
+                    System.out.println("\n===============================================");
+                    System.out.print("User CIN List : \n");
+                    users.forEach((Cin, User)->{
+                        System.out.print("\nUser CIN : "+Cin);
+                        System.out.print(" / User Name : "+User.getNom()
+                                +" / User Age : "+ User.getAge());
+                    });
+                    System.out.println("\n===============================================\n");
+                    System.out.print("Give me CIN of User : ");
+                    tempCin = scanner.nextLine();
+                    if(!users.containsKey(tempCin)) {
+                        System.out.println("User with CIN " + tempCin + " not exists.");
+                        break;
+                    }
+                    users.remove(tempCin);
+                    System.out.println("User Deleted with successfully :)");
+                    break;
+                }
+                case 6 : test=true;
             }
         }while (!test);
     }
