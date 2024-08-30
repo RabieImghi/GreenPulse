@@ -1,35 +1,26 @@
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class User {
-    private String cin;
+    final private String cin;
     private String nom;
     private  int age;
-    private List<Consomation> consomationsList;
+    final private List<Consomation> consomationsList;
     public User(String cin, String nom, int age){
         this.cin = cin;
         this.nom = nom;
         this.age = age;
         this.consomationsList = new ArrayList<>();
     }
-    public void addConsomation(String startDate, String endDate, float carbon){
+    public void addConsumption(String startDate, String endDate, float carbon){
         Consomation consomation = new Consomation(startDate,endDate,carbon, this);
         this.consomationsList.add(consomation);
     }
 
-    public  User finUser(String cin, HashMap<String,User> users){
-        if(users.containsKey(cin)) return users.get(cin);
-        else return null;
-    }
 
     public List<Consomation> getConsomationsList() {
         return consomationsList;
-    }
-
-    public void setConsomationsList(List<Consomation> consomationsList) {
-        this.consomationsList = consomationsList;
     }
 
     public String getCin(){
@@ -44,9 +35,6 @@ public class User {
     public void setNom(String nom){
         this.nom = nom;
     }
-    public void setCin(String cin){
-        this.cin = cin;
-    }
     public void setAge(int age){
         this.age = age;
     }
@@ -58,29 +46,29 @@ public class User {
                 "\nCarbon Consumption :";
     }
 
-    public  String displayConumation(){
+    public  String displayConsumption(){
         StringBuilder tempChain = new StringBuilder();
-        final float[] totalConsumation = {0};
-        this.consomationsList.forEach((consumations) -> {
-            tempChain.append(String.format("\n%d) \t- Start Date Consumption: %s", consumations.getId(), consumations.getStartDate()));
-            tempChain.append(String.format("\n\t- End Date Consumption: %s", consumations.getEndDate()));
-            tempChain.append(String.format("\n\t- Carbon Consumption: %.2f", consumations.getCarbon()));
+        final float[] totalConsumption = {0};
+        this.consomationsList.forEach((consumption) -> {
+            tempChain.append(String.format("\n%d) \t- Start Date Consumption: %s", consumption.getId(), consumption.getStartDate()));
+            tempChain.append(String.format("\n\t- End Date Consumption: %s", consumption.getEndDate()));
+            tempChain.append(String.format("\n\t- Carbon Consumption: %.2f", consumption.getCarbon()));
             tempChain.append("\n---------------------------");
-            totalConsumation[0] += consumations.getCarbon();
+            totalConsumption[0] += consumption.getCarbon();
         });
-        tempChain.append(String.format("\nTotal Consumption: %.2f", totalConsumation[0]));
+        tempChain.append(String.format("\nTotal Consumption: %.2f", totalConsumption[0]));
         return tempChain.toString();
     }
-    public float calculateDaysConsumation(){
+    public float calculateDaysConsumption(){
         float totalDays = 0;
         float totalCarbon = 0;
-        for (Consomation consomation : this.consomationsList) {
-            totalDays += ChronoUnit.DAYS.between(consomation.getStartDate(), consomation.getEndDate());
-            totalCarbon += consomation.getCarbon();
+        for (Consomation consumption : this.consomationsList) {
+            totalDays += ChronoUnit.DAYS.between(consumption.getStartDate(), consumption.getEndDate());
+            totalCarbon += consumption.getCarbon();
         }
         return totalCarbon/totalDays;
     }
-    public float calculateWeeklyConsumation(){
+    public float calculateWeeklyConsumption(){
         float totalWeeks = 0;
         float totalCarbon = 0;
         for (Consomation consomation : this.consomationsList) {
@@ -89,7 +77,7 @@ public class User {
         }
         return totalCarbon/totalWeeks;
     }
-    public float calculateMonthlyConsumation(){
+    public float calculateMonthlyConsumption(){
         float totalMonths = 0;
         float totalCarbon = 0;
         for (Consomation consomation : this.consomationsList) {

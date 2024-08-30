@@ -1,14 +1,14 @@
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Consomation {
     private static final AtomicInteger count = new AtomicInteger(0);
-    private int id;
+    private final int id;
     private LocalDate startDate;
     private LocalDate endDate;
     private float carbon;
-    private User user;
+    private final User user;
+
 
     public int getId() {
         return id;

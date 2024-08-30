@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Main {
     public static HashMap<String, User> users = new HashMap<>();
     public static Scanner scanner = new Scanner(System.in);
-    public static String defultEntre;
+    public static String defaultEntre;
     public static String tempCin;
     public static int tempAge = 0;
     public static  boolean functionReturn = false;
@@ -13,23 +13,23 @@ public class Main {
         boolean test =false;
         do{
             int option = displayMenuUser();
-            defultEntre = scanner.nextLine();
+            defaultEntre = scanner.nextLine();
             switch (option){
                 case 1 : {
                     functionReturn = addNewUser();
                     if(!functionReturn) break;
-                };
+                }
                 case 2 : {
                     functionReturn = addNewConsumptionUser();
                     if(!functionReturn) break;
-                } ;
+                }
                 case 3 : {
                     tempCin = displayUserListForSelect();
                     if(tempCin.equals("null")) break;
                     else {
                         System.out.println("\n===============================================");
                         System.out.println(users.get(tempCin).toString());
-                        System.out.println(users.get(tempCin).displayConumation());
+                        System.out.println(users.get(tempCin).displayConsumption());
                     }
                 } break;
                 case 4 : {
@@ -110,8 +110,8 @@ public class Main {
         if(tempCin.equals("null")) return false;
         System.out.print("Give me start date : ");
         String tempDateS = scanner.nextLine();
-        for (Consomation consumations : users.get(tempCin).getConsomationsList()) {
-            if (consumations.getEndDate().equals(LocalDate.parse(tempDateS)) || consumations.getEndDate().isAfter(LocalDate.parse(tempDateS))) {
+        for (Consomation consumptions : users.get(tempCin).getConsomationsList()) {
+            if (consumptions.getEndDate().equals(LocalDate.parse(tempDateS)) || consumptions.getEndDate().isAfter(LocalDate.parse(tempDateS))) {
                 System.out.println("You can't add this date because it's already added.");
                 return false;
             }
@@ -124,7 +124,7 @@ public class Main {
         }
         System.out.print("Give me Carbon : ");
         float tempCar = scanner.nextFloat();
-        users.get(tempCin).addConsomation(tempDateS,tempDateE,tempCar);
+        users.get(tempCin).addConsumption(tempDateS,tempDateE,tempCar);
         return true;
     }
     public  static void updateUser(String cin){
@@ -138,7 +138,7 @@ public class Main {
                         "\n=========================================" +
                         "\nEntre your option : ");
         int selectOptionUpdate = scanner.nextInt();
-        defultEntre = scanner.nextLine();
+        defaultEntre = scanner.nextLine();
         switch (selectOptionUpdate){
             case 1 :{
                 System.out.print("Please give me new user name : ");
@@ -150,25 +150,25 @@ public class Main {
             }
             case 2 : {
                 System.out.print("============= Carbon Consumption List ================ ");
-                System.out.println(tempUser.displayConumation());
+                System.out.println(tempUser.displayConsumption());
                 System.out.print("=============Select Carbon Consumption to update using id (1,2...) : ");
                 int tempIdCarbon = scanner.nextInt();
-                defultEntre = scanner.nextLine();
-                boolean testIfExiste = false;
-                for (Consomation consumations : tempUser.getConsomationsList()) {
-                    if (consumations.getId() == tempIdCarbon) {
+                defaultEntre = scanner.nextLine();
+                boolean testExists = false;
+                for (Consomation consumptions : tempUser.getConsomationsList()) {
+                    if (consumptions.getId() == tempIdCarbon) {
                         System.out.print("Give me new start date : ");
-                        consumations.setStartDate(LocalDate.parse(scanner.nextLine()));
+                        consumptions.setStartDate(LocalDate.parse(scanner.nextLine()));
                         System.out.print("Give me new end date : ");
-                        consumations.setEndDate(LocalDate.parse(scanner.nextLine()));
+                        consumptions.setEndDate(LocalDate.parse(scanner.nextLine()));
                         System.out.print("Give me new Carbon : ");
-                        consumations.setCarbon(scanner.nextFloat());
+                        consumptions.setCarbon(scanner.nextFloat());
                         System.out.print("User Carbon Consumption updated with success :)\n\n");
-                        testIfExiste = true;
+                        testExists = true;
                         break;
                     }
                 }
-                if(!testIfExiste)
+                if(!testExists)
                     System.out.println("Carbon Consumption with id " +tempIdCarbon + " not exists.\n\n");
                 break;
             }
@@ -179,13 +179,13 @@ public class Main {
         System.out.println("\n===================== User Information : \n");
         System.out.println(users.get(cin).toString());
         System.out.println("\n===================== Carbon Consumption Information : \n");
-        System.out.println(users.get(cin).displayConumation());
+        System.out.println(users.get(cin).displayConsumption());
         System.out.print("\n===================== Carbon Consumption For Days : ");
-        System.out.println(users.get(cin).calculateDaysConsumation());
+        System.out.println(users.get(cin).calculateDaysConsumption());
         System.out.print("\n===================== Carbon Consumption For Weeks : ");
-        System.out.println(users.get(cin).calculateWeeklyConsumation());
+        System.out.println(users.get(cin).calculateWeeklyConsumption());
         System.out.print("\n===================== Carbon Consumption For Months : ");
-        System.out.println(+users.get(cin).calculateMonthlyConsumation());
+        System.out.println(+users.get(cin).calculateMonthlyConsumption());
         System.out.println("\n===============================================\n\n");
     }
 }
