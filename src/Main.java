@@ -1,6 +1,4 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import  java.util.Scanner;
 import java.util.HashMap;
 
@@ -22,7 +20,8 @@ public class Main {
                     "\n| 3 : Display User Information (By CIN)" +
                     "\n| 4 : Update User" +
                     "\n| 5 : Delete User" +
-                    "\n| 6 : Close" +
+                    "\n| 6 : Consumption Analysis" +
+                    "\n| 7 : Close" +
                     "\n=========================================" +
                     "\nEntre your option : ");
             int option = scanner.nextInt();
@@ -90,8 +89,6 @@ public class Main {
                     System.out.println("\n===============================================");
                     System.out.println(users.get(tempCin).toString());
                     System.out.println(users.get(tempCin).displayConumation());
-
-
                 } break;
                 case 4 : {
                     defultEntre = scanner.nextLine();
@@ -156,7 +153,6 @@ public class Main {
                         }
                         case 3 : break;
                     }
-
                 } break;
                 case 5 : {
                     defultEntre = scanner.nextLine();
@@ -178,7 +174,36 @@ public class Main {
                     System.out.println("User Deleted with successfully :)");
                     break;
                 }
-                case 6 : test=true;
+                case 6 : {
+                    defultEntre = scanner.nextLine();
+                    System.out.println("\n===============================================");
+                    System.out.print("User CIN List : \n");
+                    users.forEach((Cin, User)->{
+                        System.out.print("\nUser CIN : "+Cin);
+                        System.out.print(" / User Name : "+User.getNom()
+                                +" / User Age : "+ User.getAge());
+                    });
+                    System.out.println("\n===============================================\n");
+                    System.out.print("Give me CIN of User : ");
+                    tempCin = scanner.nextLine();
+                    if(!users.containsKey(tempCin)) {
+                        System.out.println("User with CIN " + tempCin + " not exists.");
+                        break;
+                    }
+                    System.out.println("\n===================== User Information : \n");
+                    System.out.println(users.get(tempCin).toString());
+                    System.out.println("\n===================== Carbon Consumption Information : \n");
+                    System.out.println(users.get(tempCin).displayConumation());
+                    System.out.print("\n===================== Carbon Consumption For Days : ");
+                    System.out.println(users.get(tempCin).calculateDaysConsumation());
+                    System.out.print("\n===================== Carbon Consumption For Weeks : ");
+                    System.out.println(users.get(tempCin).calculateWeeklyConsumation());
+                    System.out.print("\n===================== Carbon Consumption For Months : ");
+                    System.out.println(+users.get(tempCin).calculateMonthlyConsumation());
+                    System.out.println("\n===============================================\n\n");
+                    break;
+                }
+                case 7 : test=true; break;
             }
         }while (!test);
     }

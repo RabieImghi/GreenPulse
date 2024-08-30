@@ -1,3 +1,4 @@
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,14 +8,12 @@ public class User {
     public String nom;
     public  int age;
     public List<Consomation> consomationsList;
-
     public User(String cin, String nom, int age){
         this.cin = cin;
         this.nom = nom;
         this.age = age;
         this.consomationsList = new ArrayList<>();
     }
-
     public void addConsomation(String startDate, String endDate, float carbon){
         Consomation consomation = new Consomation(startDate,endDate,carbon, this);
         this.consomationsList.add(consomation);
@@ -52,7 +51,6 @@ public class User {
     public  String displayConumation(){
         StringBuilder tempChain = new StringBuilder();
         final float[] totalConsumation = {0};
-
         this.consomationsList.forEach((consumations) -> {
             tempChain.append(String.format("\n%d) \t- Start Date Consumption: %s", consumations.id, consumations.startDate));
             tempChain.append(String.format("\n\t- End Date Consumption: %s", consumations.endDate));
@@ -63,5 +61,34 @@ public class User {
         tempChain.append(String.format("\nTotal Consumption: %.2f", totalConsumation[0]));
         return tempChain.toString();
     }
+    public float calculateDaysConsumation(){
+        float totalDays = 0;
+        float totalCarbon = 0;
+        for (Consomation consomation : this.consomationsList) {
+            totalDays += ChronoUnit.DAYS.between(consomation.startDate, consomation.endDate);
+            totalCarbon += consomation.carbon;
+        }
+        return totalCarbon/totalDays;
+    }
+    public float calculateWeeklyConsumation(){
+        float totalWeeks = 0;
+        float totalCarbon = 0;
+        for (Consomation consomation : this.consomationsList) {
+            totalWeeks += ChronoUnit.WEEKS.between(consomation.startDate, consomation.endDate);
+            totalCarbon += consomation.carbon;
+        }
+        return totalCarbon/totalWeeks;
+    }
+    public float calculateMonthlyConsumation(){
+        float totalMonths = 0;
+        float totalCarbon = 0;
+        for (Consomation consomation : this.consomationsList) {
+            totalMonths += ChronoUnit.MONTHS.between(consomation.startDate, consomation.endDate);
+            totalCarbon += consomation.carbon;
+        }
+        return totalCarbon/totalMonths;
+    }
+
+
 
 }
