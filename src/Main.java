@@ -18,11 +18,12 @@ public class Main {
                 case 1 : {
                     functionReturn = addNewUser();
                     if(!functionReturn) break;
-                }
+
+                } break;
                 case 2 : {
                     functionReturn = addNewConsumptionUser();
                     if(!functionReturn) break;
-                }
+                } break;
                 case 3 : {
                     tempCin = displayUserListForSelect();
                     if(tempCin.equals("null")) break;
@@ -55,16 +56,17 @@ public class Main {
         }while (!test);
     }
     public static int displayMenuUser(){
-        System.out.print( "=========================================" +
-                        "\n| Select an option please :" +
-                        "\n| 1 : Add New User" +
-                        "\n| 2 : Add New Carbon Consumption" +
-                        "\n| 3 : Display User Information (By CIN)" +
-                        "\n| 4 : Update User" +
-                        "\n| 5 : Delete User" +
-                        "\n| 6 : Consumption Analysis" +
-                        "\n| 7 : Close" +
-                        "\n=========================================" +
+        System.out.print( "|===========================================|" +
+                        "\n| Select an option please :                 |" +
+                        "\n|===========================================|"+
+                        "\n| 1 : Add New User                          |" +
+                        "\n| 2 : Add New Carbon Consumption            |" +
+                        "\n| 3 : Display User Information (By CIN)     |" +
+                        "\n| 4 : Update User                           |" +
+                        "\n| 5 : Delete User                           |" +
+                        "\n| 6 : Consumption Analysis                  |" +
+                        "\n| 7 : Close                                 |" +
+                        "\n|===========================================|" +
                         "\nEntre your option : ");
         return scanner.nextInt();
     }
@@ -89,14 +91,16 @@ public class Main {
 
     }
     public static  String displayUserListForSelect(){
-        System.out.println("\n===============================================");
-        System.out.print("User CIN List : \n");
+        System.out.println("\n|===============================================|");
+        System.out.println("| User CIN List :                               |");
+        System.out.println("|-----------------------------------------------|");
         users.forEach((Cin, User)->{
-            System.out.print("\nUser CIN : "+Cin);
-            System.out.print(" / User Name : "+User.getNom()
-                    +" / User Age : "+ User.getAge());
+        System.out.println("| User CIN : "+Cin);
+            System.out.println("| User CIN : "+Cin);
+            System.out.println("| User Age : "+ User.getAge());
+            System.out.println("|-----------------------------------------------|");
         });
-        System.out.println("\n===============================================\n");
+        System.out.println("|===============================================|");
         System.out.print("Select CIN of User To Add Carbon Consumption : ");
         tempCin = scanner.nextLine();
         if(!users.containsKey(tempCin)) {
@@ -129,13 +133,13 @@ public class Main {
     }
     public  static void updateUser(String cin){
         User tempUser = users.get(cin);
-        System.out.print(
-                "=========================================" +
-                        "\n| Select an option please :" +
-                        "\n| 1 : Update User Information" +
-                        "\n| 2 : Update Carbon Consumption" +
-                        "\n| 5 : Close" +
-                        "\n=========================================" +
+        System.out.print(" |=======================================|" +
+                        "\n| Select an option please :             |" +
+                        "\n|=======================================|"+
+                        "\n| 1 : Update User Information           |" +
+                        "\n| 2 : Update Carbon Consumption         |" +
+                        "\n| 5 : Close                             |" +
+                        "\n|=======================================|" +
                         "\nEntre your option : ");
         int selectOptionUpdate = scanner.nextInt();
         defaultEntre = scanner.nextLine();
