@@ -12,50 +12,51 @@ public class Main {
     public static void main(String[] args) {
         boolean test =false;
         do{
-            int option = displayMenuUser();
-            defaultEntre = scanner.nextLine();
+            displayMenuUser();
+            String option = scanner.nextLine();
             switch (option){
-                case 1 : {
+                case "1" : {
                     functionReturn = addNewUser();
                     if(!functionReturn) break;
 
                 } break;
-                case 2 : {
+                case "2" : {
                     functionReturn = addNewConsumptionUser();
                     if(!functionReturn) break;
                 } break;
-                case 3 : {
+                case "3" : {
                     tempCin = displayUserListForSelect();
                     if(tempCin.equals("null")) break;
-                    else {
+                    else  {
                         System.out.println("\n===============================================");
                         System.out.println(users.get(tempCin).toString());
                         System.out.println(users.get(tempCin).displayConsumption());
                     }
                 } break;
-                case 4 : {
+                case "4" : {
                     tempCin = displayUserListForSelect();
                     if(tempCin.equals("null")) break;
                     updateUser(tempCin);
                 } break;
-                case 5 : {
+                case "5" : {
                     tempCin = displayUserListForSelect();
                     if(tempCin.equals("null")) break;
                     users.remove(tempCin);
                     System.out.println("User Deleted with successfully :)");
                     break;
                 }
-                case 6 : {
+                case "6" : {
                     tempCin = displayUserListForSelect();
                     if(tempCin.equals("null")) break;
                     displayRapport(tempCin);
                     break;
                 }
-                case 7 : test=true; break;
+                case "7" : test=true; break;
+                default: System.out.println("Invalid option, please try again.");
             }
         }while (!test);
     }
-    public static int displayMenuUser(){
+    public static void displayMenuUser(){
         System.out.print( "|===========================================|" +
                         "\n| Select an option please :                 |" +
                         "\n|===========================================|"+
@@ -68,7 +69,6 @@ public class Main {
                         "\n| 7 : Close                                 |" +
                         "\n|===========================================|" +
                         "\nEntre your option : ");
-        return scanner.nextInt();
     }
     public static  boolean addNewUser(){
         System.out.print("Give me your Cin : ");
@@ -141,10 +141,9 @@ public class Main {
                         "\n| 5 : Close                             |" +
                         "\n|=======================================|" +
                         "\nEntre your option : ");
-        int selectOptionUpdate = scanner.nextInt();
-        defaultEntre = scanner.nextLine();
+        String selectOptionUpdate = scanner.nextLine();
         switch (selectOptionUpdate){
-            case 1 :{
+            case "1" :{
                 System.out.print("Please give me new user name : ");
                 tempUser.setNom(scanner.nextLine());
                 System.out.print("Please give me new user Age : ");
@@ -152,7 +151,7 @@ public class Main {
                 System.out.print("User updated with success :)\n");
                 break;
             }
-            case 2 : {
+            case "2" : {
                 System.out.print("============= Carbon Consumption List ================ ");
                 System.out.println(tempUser.displayConsumption());
                 System.out.print("=============Select Carbon Consumption to update using id (1,2...) : ");
@@ -176,7 +175,8 @@ public class Main {
                     System.out.println("Carbon Consumption with id " +tempIdCarbon + " not exists.\n\n");
                 break;
             }
-            case 3 : break;
+            case "3" : break;
+            default: System.out.println("Invalid option, please try again.");
         }
     }
     public static  void displayRapport(String cin){
