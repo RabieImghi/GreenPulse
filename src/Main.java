@@ -10,6 +10,7 @@ public class Main {
     public static int tempAge = 0;
     public static  boolean functionReturn = false;
     public static void main(String[] args) {
+
         boolean test =false;
         do{
             displayMenuUser();
@@ -79,11 +80,16 @@ public class Main {
         }else {
             System.out.print("Give me your name : ");
             String tempNom=scanner.nextLine();
-            do{
-                System.out.print("Give me your Age : ");
-                tempAge=scanner.nextInt();
-                defaultEntre = scanner.nextLine();
-            }while (tempAge == 0);
+            do {
+                System.out.print("Give me your Age: ");
+                String input = scanner.nextLine();
+                try {
+                    tempAge = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Age, please enter a valid integer.");
+                    tempAge = 0;
+                }
+            } while (tempAge == 0);
             User User = new User(tempCin,tempNom,tempAge);
             users.put(User.getCin(),User);
             System.out.println("User Added with successfully :)");
@@ -105,7 +111,6 @@ public class Main {
         System.out.print("Select CIN of User To Add Carbon Consumption : ");
         tempCin = scanner.nextLine();
         if(!users.containsKey(tempCin)) {
-
             return "null";
         }
         return tempCin;
