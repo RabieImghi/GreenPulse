@@ -82,6 +82,7 @@ public class Main {
             do{
                 System.out.print("Give me your Age : ");
                 tempAge=scanner.nextInt();
+                defaultEntre = scanner.nextLine();
             }while (tempAge == 0);
             User User = new User(tempCin,tempNom,tempAge);
             users.put(User.getCin(),User);
@@ -96,7 +97,7 @@ public class Main {
         System.out.println("|-----------------------------------------------|");
         users.forEach((Cin, User)->{
         System.out.println("| User CIN : "+Cin);
-            System.out.println("| User CIN : "+Cin);
+            System.out.println("| User Name : "+User.getNom());
             System.out.println("| User Age : "+ User.getAge());
             System.out.println("|-----------------------------------------------|");
         });
@@ -180,16 +181,34 @@ public class Main {
         }
     }
     public static  void displayRapport(String cin){
+
         System.out.println("\n===================== User Information : \n");
         System.out.println(users.get(cin).toString());
         System.out.println("\n===================== Carbon Consumption Information : \n");
         System.out.println(users.get(cin).displayConsumption());
-        System.out.print("\n===================== Carbon Consumption For Days : ");
-        System.out.println(users.get(cin).calculateDaysConsumption());
-        System.out.print("\n===================== Carbon Consumption For Weeks : ");
-        System.out.println(users.get(cin).calculateWeeklyConsumption());
-        System.out.print("\n===================== Carbon Consumption For Months : ");
-        System.out.println(+users.get(cin).calculateMonthlyConsumption());
+        System.out.print("\n===================== Carbon Consumption For Days : \n");
+        for(Consomation consomation : users.get(cin).getConsomationsList()){
+            System.out.println("From Date : "
+                    +consomation.getStartDate()+" To Date : "
+                    +consomation.getEndDate()+" Carbon Consumption  : "
+                    +users.get(cin).calculateDaysConsumption(consomation)+"\n");
+        }
+
+        System.out.print("\n===================== Carbon Consumption For Weeks : \n");
+        for(Consomation consomation : users.get(cin).getConsomationsList()){
+            System.out.println("From Date : "
+                    +consomation.getStartDate()+" To Date : "
+                    +consomation.getEndDate()+" Carbon Consumption  : "
+                    +users.get(cin).calculateWeeklyConsumption(consomation)+"\n");
+        }
+
+        System.out.print("\n===================== Carbon Consumption For Months : \n");
+        for(Consomation consomation : users.get(cin).getConsomationsList()){
+            System.out.println("From Date : "
+                    +consomation.getStartDate()+" To Date : "
+                    +consomation.getEndDate()+" Carbon Consumption  : "
+                    +users.get(cin).calculateMonthlyConsumption(consomation)+"\n");
+        }
         System.out.println("\n===============================================\n\n");
     }
 }
